@@ -83,6 +83,19 @@ class HMM_TxtGenerator:
         K = A.shape[0]
 
         ### YOUR CODE HERE ###
+        # Initialize the alpha matrix
+        alpha = np.zeros((T, K))
+
+        # Base case: compute alpha for the first observation
+        for k in range(K):
+            alpha[0, k] = pi[k] * B[k, x[0]]
+
+        # Recursion step: compute alpha for subsequent observations
+        for t in range(1, T):
+            for k in range(K):
+                alpha[t, k] = np.sum(alpha[t - 1] * A[:, k]) * B[k, x[t]]
+
+        return alpha
 
     def log_likelihood(self, alpha):
         """Computes the log-likelihood for a list of observations
@@ -99,7 +112,13 @@ class HMM_TxtGenerator:
         """
 
         ### YOUR CODE HERE ###
-        T = alpha.shape[0]
+        T, K = alpha.shape
+
+        # Compute the log-likelihood by summing probabilities of all final states at time T
+        log_likelihood = np.log(np.sum(alpha[-1]))
+
+        return log_likelihood
+        
 
     def backwards(self, x):
         """Applies the forwards algorithm for a list of observations
@@ -120,6 +139,18 @@ class HMM_TxtGenerator:
         K = A.shape[0]
 
         ### YOUR CODE HERE ###
+        # Initialize the beta matrix
+        beta = np.zeros((T, K))
+
+        # Base case: Initialize beta for the last time step T
+        beta[T - 1, :] = 1.0
+
+        # Recursion step: Compute beta for the previous time steps
+        for t in range(T - 2, -1, -1):
+            for k in range(K):
+                beta[t, k] = np.sum(A[k, :] * B[:, x[t + 1]] * beta[t + 1, :])
+
+        return beta
 
     def E_step(self, sentence_in):
         """Given one observed `sentence_in`, computes sum_chi(i,j), sum_gamma_x(i,j), gamma_1(k).
