@@ -46,6 +46,17 @@ class Embedding():
         ###########################
         # YOUR CODE HERE
         ###########################
+        # vocab: one two three four five
+        # example: one two three
+        # sequence: 0 1 2 
+        # one_hot:
+        # 10000
+        # 01000
+        # 00100
+        one_hot = np.zeros((num_classes, sequence.shape[0]))
+        for i, token in enumerate(sequence):
+            one_hot[token, i] = 1
+
         return one_hot
 
     def softmax(self, x: NDArray, axis: int) -> NDArray:
@@ -65,6 +76,7 @@ class Embedding():
         ###########################
         # YOUR CODE HERE
         ###########################
+        y = np.exp(x - np.max(x, axis=axis, keepdims=True)) / np.sum(np.exp(x - np.max(x, axis=axis, keepdims=True)), axis=axis, keepdims=True)
         return y
 
     def loss(self, y_true: NDArray, y_predicted: NDArray) -> float:
@@ -90,6 +102,7 @@ class Embedding():
         ###########################
         # YOUR CODE HERE
         ###########################
+        loss = -1 / y_true.shape[1] * np.sum(y_true * np.log(y_predicted))
         
         return loss
 
@@ -126,6 +139,9 @@ class Embedding():
         ###########################
         # YOUR CODE HERE
         ###########################
+        embedding = self.U @ x
+        logits = self.V @ embedding
+        prob = self.softmax(logits, axis=0)
         
         # Save values for backpropagation
         self.ctx = (embedding, logits, prob, x, y)
@@ -151,5 +167,7 @@ class Embedding():
         ###########################
         # YOUR CODE HERE
         ###########################
-
+        d_logits = prob - y
+        d_V = d_logits @ embedding.T
+        d_U = d_logits @ self.V.T
         return { 'V': d_V, 'U': d_U }

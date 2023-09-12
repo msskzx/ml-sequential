@@ -57,6 +57,16 @@ def compute_token_to_index(vocabulary: Tuple[str], counts: Tuple[int]) -> Tuple[
     ###########################
     # YOUR CODE HERE
     ###########################
+    token_to_index = {}
+    index_to_token = {}
+    index_to_count = {}
+
+    for i, token in enumerate(vocabulary):
+        token_to_index[token] = i
+        index_to_token[i] = token
+        index_to_count[i] = counts[i]
+
+    return token_to_index, index_to_token, index_to_count
 
 def get_token_pairs_from_window(sequence: Sequence[str], window_size: int, token_to_index: Dict[str, int]) -> Sequence[Tuple[int, int]]:
     """ Collect all ordered token pairs from a sentence (sequence) that are at most `window_size` apart.
@@ -74,3 +84,9 @@ def get_token_pairs_from_window(sequence: Sequence[str], window_size: int, token
     ###########################
     # YOUR CODE HERE
     ###########################
+    ordered_token_pairs = []
+    for i, token in enumerate(sequence):
+        for j in range(i - window_size, i + window_size + 1):
+            if j >= 0 and j < len(sequence) and j != i:
+                ordered_token_pairs.append((token_to_index[token], token_to_index[sequence[j]]))
+    return ordered_token_pairs

@@ -54,6 +54,8 @@ class Optimizer():
             ###########################
             # YOUR CODE HERE
             ###########################
+            dw_new = self.momentum * dw_prev + (1 - self.momentum) * dw
+            w_new = w - self.learning_rate * dw_new
 
             self.previous[name] = dw_new
             setattr(self.model, name, w_new)

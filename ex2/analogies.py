@@ -42,6 +42,7 @@ def get_analogies(embedding_matrix: NDArray, triplet: Tuple[str, str, str],
     ###########################
     # YOUR CODE HERE
     ###########################
+    result = embedding_matrix[token_to_idx[a]] - embedding_matrix[token_to_idx[b]] + embedding_matrix[token_to_idx[d]]
     
     distances = cosine_distance(result[None, :], embedding_matrix) # 1, vocabulary_size
     candidates = [idx_to_token[idx] for idx in np.argsort(distances.flatten())]
