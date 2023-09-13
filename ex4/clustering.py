@@ -60,7 +60,16 @@ def construct_laplacian(A: sp.csr_matrix, norm_laplacian: bool) -> sp.csr_matrix
     """
     ##########################################################
     # YOUR CODE HERE
-    L = None
+    if norm_laplacian:
+        # Calculate the degree matrix
+        D = sp.diags(1 / np.sqrt(A.sum(axis=1)).A.flatten())
+        # Construct the Laplacian matrix
+        L = sp.eye(A.shape[0]) - D @ A @ D
+    else:
+        # Calculate the degree matrix
+        D = sp.diags(A.sum(axis=1).flatten())
+        # Construct the Laplacian matrix
+        L = D - A
     ##########################################################
     return L
 
@@ -94,7 +103,15 @@ def spectral_embedding(A: sp.csr_matrix, num_clusters: int, norm_laplacian: bool
 
     ##########################################################
     # YOUR CODE HERE
-    embedding = None
+    # Construct the Laplacian matrix
+    L = construct_laplacian(A, norm_laplacian)
+
+    # Compute the first 'num_clusters' eigenvectors of the Laplacian
+    eigenvalues, eigenvectors = eigsh(L.toarray(), eigvals=(0, num_clusters - 1))
+
+    # Sort the eigenvectors based on eigenvalues
+    sorted_indices = np.argsort(eigenvalues)
+    embedding = eigenvectors[:, sorted_indices]
     ##########################################################
 
     return embedding

@@ -51,8 +51,10 @@ def get_tau(
     """
     # compute inter-eventtimes
     #######################################################
-    # write here
-    tau = None
+    # Calculate the inter-event times using torch.diff
+    tau = torch.diff(t)
+    # Append the time until the end as the last inter-event time
+    tau = torch.cat([tau, t_end - t[-1].unsqueeze(0)], dim=0)
     #######################################################
 
     return tau
