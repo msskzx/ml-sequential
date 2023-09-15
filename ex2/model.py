@@ -46,13 +46,17 @@ class Embedding():
         ###########################
         # YOUR CODE HERE
         ###########################
-        # vocab: one two three four five
+        # vocab: zero one two three four five
         # example: one two three
-        # sequence: 0 1 2 
+        # sequence: 1 2 3 
         # one_hot:
-        # 10000
-        # 01000
-        # 00100
+        # 0 0 0
+        # 1 0 0
+        # 0 1 0
+        # 0 0 1
+        # 0 0 0
+        # 0 0 0
+
         one_hot = np.zeros((num_classes, sequence.shape[0]))
         for i, token in enumerate(sequence):
             one_hot[token, i] = 1
