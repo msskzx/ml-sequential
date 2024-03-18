@@ -10,15 +10,15 @@
 
 ## Hidden Markov Model
 
-- `Hidden Markov Model (HMM)` to generate and classify reviews
+Implemented `Hidden Markov Model (HMM)` to generate and classify reviews
 
 ## Word2Vec
 
-- `Word2Vec` to obtain word embeddings
+Implemented `Word2Vec` to obtain word embeddings
 
 ## Neural Temporal Point Processes
 
-- `Neural Temporal Point Processes` to model the time of occurrence of events
+Implemented `Neural Temporal Point Processes` to model the time of occurrence of events
 
 ## Hate Speech Detection
 
