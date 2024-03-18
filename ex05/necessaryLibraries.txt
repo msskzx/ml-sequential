@@ -1,0 +1,13 @@
+torch>=2.0.1
+torchvision>=0.15.2
+scikit-learn>=1.2.2
+pandas>=1.5.3
+numpy>=1.22.4
+tensorflow-hub>=0.13.0
+torch-summary
+
+To install the packages: open anaconda Prompt
+type
+activate YOUR_ENVIRONMENT_NAME
+and
+pip install package_name
