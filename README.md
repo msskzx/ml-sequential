@@ -44,4 +44,4 @@
 - Model: `DistilBERT`
 - Explanation using `SHAP`
 
-![shap sexism](/ex06/shap-sexism.png)
+![shap sexism](ex6/shap-sexism.png)
