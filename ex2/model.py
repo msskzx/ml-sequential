@@ -173,5 +173,5 @@ class Embedding():
         ###########################
         d_logits = prob - y
         d_V = d_logits @ embedding.T
-        d_U = d_logits @ self.V.T
+        d_U = embedding @ x.T
         return { 'V': d_V, 'U': d_U }
