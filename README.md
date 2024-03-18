@@ -22,15 +22,17 @@ Implemented `Neural Temporal Point Processes` to model the time of occurrence of
 
 ## Hate Speech Detection
 
+Implemented a Fully Connected Neural Network to detect hate speech in tweets.
+
 - Tweets labels: `RACIST`, `SEXIST`, `NEITHER`
 - Data Preprocessing
 
   - `LabelEncoder` for labels
   - `Universal Sentence Encoder` to get text embeddings
 
-- Model: Fully Connected Neural Network
-
 ## Toxic Speech Classification
+
+Employed `DistilBERT` to classify tweets to detec toxic speech.
 
 - Tweets labels: `none`, `racism`, `sexism`
 - Data Preprocessing
